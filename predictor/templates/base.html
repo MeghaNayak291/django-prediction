@@ -1,77 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{% block title %}ML Project{% endblock %}</title>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}Strawberry Disease Detection{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            padding: 40px;
-        }
+        :root{--bg:#fff6f1;--accent:#d94f3d;--muted:#fde7dd;--card:#fff;--text:#2a231f}
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:var(--text);background:linear-gradient(180deg,var(--bg),#ffffff)}
+        .container{max-width:1100px;margin:28px auto;padding:20px}
 
-        .navbar {
-            text-align: right;
-            margin-bottom: 20px;
-        }
+        /* top bar */
+        .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+        .brand{display:flex;align-items:center;gap:14px}
+        .logo{width:56px;height:56px;border-radius:12px;background:radial-gradient(circle at 30% 30%,#ff7878,#c73b3b);box-shadow:0 10px 30px rgba(199,59,59,0.12);display:flex;align-items:center;justify-content:center;color:white;font-weight:800}
+        .brand h1{font-size:18px;margin:0}
 
-        .navbar a {
-            text-decoration: none;
-            color: #2e7d32;
-            margin-left: 15px;
-            font-weight: bold;
-        }
+        .navbar{display:flex;gap:14px;align-items:center}
+        .navbar a{color:var(--text);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:8px}
+        .navbar a.btn{background:var(--accent);color:#fff}
+        .logout-btn{background:transparent;border:2px solid var(--accent);padding:6px 10px;border-radius:8px;color:var(--accent);cursor:pointer}
 
-        .logout-btn {
-            background: none;
-            border: none;
-            color: #2e7d32;
-            font-weight: bold;
-            cursor: pointer;
-            margin-left: 15px;
-            font-size: 14px;
-        }
+        /* hero */
+        .hero{display:flex;gap:28px;align-items:center;background:linear-gradient(90deg,var(--muted),#fff);padding:26px;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,0.06)}
+        .hero-left{flex:1}
+        .eyebrow{display:inline-block;padding:6px 10px;background:rgba(0,0,0,0.05);border-radius:8px;font-weight:700;font-size:12px}
+        h2.hero-title{margin:18px 0 8px;font-size:36px;line-height:1;color:#2b1f18}
+        p.lead{margin:0 0 18px;color:#5a463f}
+        .cta{display:inline-block;background:var(--accent);color:white;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:800;box-shadow:0 10px 30px rgba(217,79,61,0.18)}
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+        .hero-right{width:340px}
+        .decor-card{background:var(--card);padding:18px;border-radius:12px;text-align:center;box-shadow:0 8px 30px rgba(43,43,43,0.06)}
+        .decor-graphic{display:flex;justify-content:center;align-items:center;gap:10px}
+        .straw{width:140px;height:140px;border-radius:22px;background:radial-gradient(circle at 30% 30%,#ff6b6b,#c63636);position:relative;box-shadow:0 10px 30px rgba(198,54,54,0.12)}
+        .straw:before{content:'';position:absolute;left:18px;top:14px;width:36px;height:18px;background:#2f7b2f;border-radius:6px;transform:rotate(-18deg)}
+        .magnify{width:72px;height:72px;border-radius:999px;background:#fff;border:6px solid rgba(0,0,0,0.06);box-shadow:0 8px 18px rgba(0,0,0,0.08)}
 
-        button {
-            background-color: #2e7d32;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        /* sections */
+        .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+        .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,0.04)}
 
-        button:hover {
-            background-color: #1b5e20;
-        }
+        footer{margin-top:28px;text-align:center;color:#6b5d58;font-size:13px}
+
+        @media(max-width:900px){.hero{flex-direction:column}.hero-right{width:100%}.grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:560px){.grid{grid-template-columns:1fr}}
     </style>
 </head>
 <body>
 
-{% if user.is_authenticated %}
-<div class="navbar">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'history' %}">History</a>
-    <a href="{% url 'profile' %}">Profile</a>
+<div class="container">
 
-    <form action="{% url 'logout' %}" method="post" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" class="logout-btn">
-            Logout
-        </button>
-    </form>
+    <div class="topbar">
+        <div class="brand">
+            <div class="logo">SD</div>
+            <div>
+                <h1>Strawberry Disease Detection</h1>
+                <div style="font-size:12px;color:#6b5d58;margin-top:2px">Fast model-backed plant diagnostics</div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'history' %}">History</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn">Sign in</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-left">
+            <div class="eyebrow">Focused on Strawberries</div>
+            <h2 class="hero-title">Detect Diseases Quickly and Confidently</h2>
+            <p class="lead">Upload a photo, get a model prediction with confidence, and review suggested treatments. Suitable for farmers and researchers.</p>
+            <a class="cta" href="/">Open Detector</a>
+
+            <div class="grid">
+                <div class="card"><strong>Mobile-friendly</strong><div style="margin-top:6px;color:#6b5d58">Use from phone or tablet</div></div>
+                <div class="card"><strong>Multiple models</strong><div style="margin-top:6px;color:#6b5d58">MobileNet, EfficientNet & ShuffleNet</div></div>
+                <div class="card"><strong>Saved history</strong><div style="margin-top:6px;color:#6b5d58">Track previous detections</div></div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="decor-card">
+                <div class="decor-graphic">
+                    <div class="straw"></div>
+                    <div class="magnify"></div>
+                </div>
+                <h3 style="margin-top:14px">Smart Detection</h3>
+                <div style="color:#6b5d58;margin-top:6px">Example confidence: <strong>92%</strong></div>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        © <span id="year"></span> Strawberry Disease Detection — Built with care.
+    </footer>
+
 </div>
-{% endif %}
 
-{% block content %}
-{% endblock %}
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 
 </body>
 </html>
+

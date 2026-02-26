@@ -22,6 +22,11 @@ def home(request):
     return render(request, "home.html")
 
 
+# Decorative public landing page (no login required)
+def decor_view(request):
+    return render(request, "decor.html")
+
+
 # ---------------- PREDICT API ----------------
 
 @api_view(['POST'])

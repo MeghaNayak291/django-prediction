@@ -105,6 +105,7 @@ async function predict() {
 
     const response = await fetch("/api/predict/", {
         method: "POST",
+        credentials: 'same-origin',
         headers: {
             "X-CSRFToken": getCookie("csrftoken")
         },

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Strawberry Disease Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f6ebe0;--accent:#e07a3a;--muted:#f3d9c5;--card:#fff;--text:#2b2b2b}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; color:var(--text);background:linear-gradient(180deg,var(--bg),#fff);}
+    .wrap{max-width:1100px;margin:32px auto;padding:28px}
+    .hero{display:flex;gap:28px;align-items:center;background:linear-gradient(90deg,var(--muted),#fff);border-radius:12px;padding:28px;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+    .hero-left{flex:1}
+    .eyebrow{display:inline-block;padding:6px 10px;background:rgba(0,0,0,0.06);border-radius:8px;font-weight:600;font-size:12px}
+    h1{margin:18px 0 10px;font-size:44px;line-height:1;letter-spacing:-1px;color:#2a1f18}
+    p.lead{margin:0 0 18px;color:#4a3b36}
+    .cta{display:inline-block;background:var(--accent);color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 6px 14px rgba(224,122,58,0.28)}
+    .hero-right{width:320px;display:flex;justify-content:center}
+    .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:0 8px 24px rgba(43,43,43,0.06);text-align:center}
+    /* decorative strawberry + magnifier */
+    .badge{display:inline-flex;align-items:center;gap:12px}
+    .strawberry{width:140px;height:140px;border-radius:28px;background:radial-gradient(circle at 30% 30%,#ff6b6b,#c63636);position:relative;box-shadow:0 10px 30px rgba(198,54,54,0.18)}
+    .strawberry:before{content:'';position:absolute;left:20px;top:16px;width:36px;height:20px;background:#3b7b2b;border-radius:6px;transform:rotate(-18deg)}
+    .strawberry:after{content:'';position:absolute;right:18px;bottom:18px;width:18px;height:12px;border-radius:50%;background:rgba(255,255,255,0.18)}
+    .magnify{width:76px;height:76px;border-radius:999px;background:linear-gradient(180deg,#fff,#f1f1f1);display:inline-block;position:relative;border:6px solid rgba(0,0,0,0.06);box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+    .magnify:after{content:'';position:absolute;right:-18px;bottom:-18px;width:16px;height:40px;background:#7d5a3c;border-radius:6px;transform:rotate(-20deg)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    .feature{background:var(--card);Padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+    .feature h3{margin:6px 0;font-size:16px}
+    .how{display:flex;gap:18px;margin-top:26px}
+    .how-step{flex:1;background:var(--card);padding:18px;border-radius:12px}
+    footer{margin-top:32px;text-align:center;color:#6b5d58;font-size:14px}
+    @media (max-width:900px){.hero{flex-direction:column}.hero-right{width:100%}.grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:560px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="eyebrow">Strawberry Disease Detection</div>
+        <h1>Detect, Diagnose & Protect<br/>Your Strawberry Crop</h1>
+        <p class="lead">Upload a photo of a strawberry leaf or fruit and get fast model-backed detection of common diseases. Accurate, simple, and field-ready.</p>
+        <a class="cta" href="{% url 'home' %}">Try the Detector</a>
+
+        <div class="grid">
+          <div class="feature"><strong>Quick Results</strong><h3>Get predictions in seconds</h3></div>
+          <div class="feature"><strong>Multiple Models</strong><h3>Ensemble of MobileNet / EfficientNet</h3></div>
+          <div class="feature"><strong>History</strong><h3>Track past detections in your profile</h3></div>
+        </div>
+
+        <div class="how">
+          <div class="how-step">
+            <strong>1. Upload</strong>
+            <p>Take a clear photo of the leaf or fruit.</p>
+          </div>
+          <div class="how-step">
+            <strong>2. Analyze</strong>
+            <p>Our model inspects for lesions, spots, and discoloration.</p>
+          </div>
+          <div class="how-step">
+            <strong>3. Act</strong>
+            <p>Get diagnosis, confidence score, and recommended steps.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="card">
+          <div class="badge">
+            <div class="strawberry" aria-hidden="true"></div>
+            <div class="magnify" aria-hidden="true"></div>
+          </div>
+          <h3 style="margin-top:14px">Smart Detection</h3>
+          <p style="color:#6b5d58;margin:8px 0 0">Confidence: <strong>92%</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <section style="margin-top:28px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="margin:0;font-size:20px">Model Gallery & Outputs</h2>
+        <a href="{% url 'history' %}" style="color:var(--accent);text-decoration:none;font-weight:700">View History →</a>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:12px;overflow:auto">
+        <div style="min-width:220px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)">Leaf with rust-like spots</div>
+        <div style="min-width:220px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)">Mildew pattern</div>
+        <div style="min-width:220px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)">Healthy leaf</div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Strawberry Disease Detection — Built with care.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

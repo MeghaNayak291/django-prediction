@@ -1,0 +1,906 @@
+/* =====================
+   Main Colors & Variables
+   ===================== */
+:root {
+    --primary: #dc3545;
+    --primary-dark: #c82333;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+/* =====================
+   Global Styles
+   ===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #f0ebe5 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main, .container-fluid {
+    flex: 1;
+}
+
+/* =====================
+   Navbar Styling
+   ===================== */
+.navbar-custom {
+    background: linear-gradient(90deg, #fff 0%, #fafafa 100%);
+    border-bottom: 1px solid #eee;
+}
+
+.navbar-brand {
+    color: var(--danger) !important;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+    transition: var(--transition);
+}
+
+.nav-link {
+    color: var(--dark) !important;
+    font-weight: 500;
+    margin: 0 8px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--danger) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--danger);
+    transition: var(--transition);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* =====================
+   Hero Section
+   ===================== */
+.hero-section {
+    padding: 60px 0;
+}
+
+.hero-content h1 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    animation: slideInUp 0.6s ease;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    animation: slideInUp 0.8s ease;
+}
+
+.hero-image {
+    text-align: center;
+    font-size: 200px;
+    color: #ffccdd;
+    opacity: 0.5;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger) 0%, var(--primary-dark) 100%);
+    border: none;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--danger) 100%);
+}
+
+/* =====================
+   Stats Section
+   ===================== */
+.stats-section {
+    padding: 40px 0;
+}
+
+.stat-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.15);
+    border-color: var(--danger);
+}
+
+.stat-icon {
+    font-size: 48px;
+    color: var(--danger);
+    margin-bottom: 15px;
+}
+
+.stat-card h3 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: var(--secondary);
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/* =====================
+   Diseases Section
+   ===================== */
+.diseases-section h2 {
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--dark);
+}
+
+.disease-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 30px 20px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid;
+    cursor: pointer;
+}
+
+.disease-card-healthy {
+    border-left-color: var(--success);
+}
+
+.disease-card-danger {
+    border-left-color: var(--danger);
+}
+
+.disease-card-warning {
+    border-left-color: var(--warning);
+}
+
+.disease-card-info {
+    border-left-color: var(--info);
+}
+
+.disease-card.healthy {
+    border-left-color: var(--success);
+}
+
+.disease-card.danger {
+    border-left-color: var(--danger);
+}
+
+.disease-card.warning {
+    border-left-color: var(--warning);
+}
+
+.disease-card.info {
+    border-left-color: var(--info);
+}
+
+.disease-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.disease-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.disease-card.healthy .disease-icon {
+    color: var(--success);
+}
+
+.disease-card.danger .disease-icon {
+    color: var(--danger);
+}
+
+.disease-card.warning .disease-icon {
+    color: var(--warning);
+}
+
+.disease-card.info .disease-icon {
+    color: var(--info);
+}
+
+.disease-card h4 {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.disease-card p {
+    color: var(--secondary);
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+/* =====================
+   Recent Predictions
+   ===================== */
+.recent-section h2 {
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.prediction-card {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.prediction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.prediction-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #f5f7fa 0%, #f0ebe5 100%);
+}
+
+.prediction-info {
+    padding: 20px;
+}
+
+.prediction-info h5 {
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.confidence {
+    color: var(--danger);
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* =====================
+   Prediction Form
+   ===================== */
+.prediction-form-container {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.prediction-form-container h2 {
+    color: var(--dark);
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 3px dashed #ddd;
+    border-radius: var(--border-radius);
+    padding: 60px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: linear-gradient(135deg, #f8f9fa 0%, #f0ebe5 100%);
+}
+
+.upload-area:hover {
+    border-color: var(--danger);
+    background: linear-gradient(135deg, #fff5f6 0%, #ffe8ec 100%);
+}
+
+.upload-area.dragover {
+    border-color: var(--danger);
+    background: linear-gradient(135deg, #fff5f6 0%, #ffe8ec 100%);
+    transform: scale(1.02);
+}
+
+.upload-content i {
+    font-size: 64px;
+    color: var(--danger);
+    margin-bottom: 15px;
+    display: block;
+    opacity: 0.7;
+}
+
+.upload-content h5 {
+    color: var(--dark);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.upload-content p {
+    color: var(--secondary);
+    margin-bottom: 0;
+}
+
+#imageInput {
+    display: none;
+}
+
+/* =====================
+   Image Preview
+   ===================== */
+.image-preview {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #f5f7fa 0%, #f0ebe5 100%);
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-remove:hover {
+    transform: scale(1.1);
+    background: var(--primary-dark);
+}
+
+/* =====================
+   File Info
+   ===================== */
+.file-info {
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+.file-info p {
+    margin-bottom: 5px;
+}
+
+.file-info p:last-child {
+    margin-bottom: 0;
+}
+
+/* =====================
+   Tips Section
+   ===================== */
+.tips-section {
+    background: #f0f8ff;
+    border-left: 4px solid var(--info);
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+
+.tips-section h5 {
+    color: var(--info);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.tips-section ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.tips-section li {
+    padding: 8px 0;
+    color: var(--secondary);
+    position: relative;
+    padding-left: 25px;
+}
+
+.tips-section li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--info);
+    font-weight: bold;
+}
+
+/* =====================
+   Result Container
+   ===================== */
+.result-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.result-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.result-image {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #f5f7fa 0%, #f0ebe5 100%);
+}
+
+.result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.result-content h2 {
+    color: var(--dark);
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* =====================
+   Disease Badge
+   ===================== */
+.disease-badge {
+    display: inline-block;
+    padding: 30px 40px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.disease-badge i {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.disease-badge h3 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.badge-healthy {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    color: #856404;
+}
+
+.badge-info {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+}
+
+/* =====================
+   Confidence Bar
+   ===================== */
+.confidence-section {
+    margin: 20px 0;
+}
+
+.confidence-section p {
+    color: var(--secondary);
+    margin-bottom: 15px;
+}
+
+.confidence-bar {
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 40px;
+}
+
+.confidence-fill {
+    background: linear-gradient(90deg, var(--danger) 0%, #ff6b7a 100%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    min-width: 60px;
+}
+
+.confidence-text {
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* =====================
+   Disease Description
+   ===================== */
+.disease-description {
+    text-align: left;
+    border-left: 4px solid var(--danger);
+    color: var(--dark);
+}
+
+.disease-description p {
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* =====================
+   Recommendations
+   ===================== */
+.recommendations {
+    text-align: left;
+    border-left: 4px solid var(--info);
+}
+
+.recommendations h5 {
+    color: var(--info);
+    font-weight: 600;
+}
+
+.recommendations ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.recommendations li {
+    padding: 10px 0;
+    color: var(--secondary);
+    position: relative;
+    padding-left: 25px;
+}
+
+.recommendations li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--info);
+    font-weight: bold;
+}
+
+/* =====================
+   Action Buttons
+   ===================== */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.action-buttons .btn {
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.action-buttons .btn-primary {
+    background: linear-gradient(135deg, var(--danger) 0%, var(--primary-dark) 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.action-buttons .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.action-buttons .btn-outline-primary {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.action-buttons .btn-outline-primary:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+}
+
+/* =====================
+   History Table
+   ===================== */
+.history-table {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.history-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.history-table tbody tr {
+    transition: var(--transition);
+}
+
+.history-table tbody tr:hover {
+    background: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.history-table .badge {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+/* =====================
+   Empty State
+   ===================== */
+.empty-state {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 60px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state i {
+    font-size: 64px;
+    color: #ddd;
+}
+
+.empty-state h4 {
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: var(--secondary);
+}
+
+/* =====================
+   Footer
+   ===================== */
+.footer {
+    background: white;
+    border-top: 1px solid #eee;
+    margin-top: auto;
+    color: var(--secondary);
+}
+
+.footer p {
+    margin-bottom: 0;
+}
+
+/* =====================
+   Responsive Design
+   ===================== */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 30px 0;
+    }
+
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .hero-image {
+        font-size: 100px;
+    }
+
+    .prediction-form-container {
+        padding: 25px;
+    }
+
+    .upload-area {
+        padding: 40px 15px;
+    }
+
+    .upload-content i {
+        font-size: 48px;
+    }
+
+    .result-card {
+        padding: 25px;
+    }
+
+    .disease-badge {
+        padding: 20px 30px;
+    }
+
+    .disease-badge h3 {
+        font-size: 24px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .stat-icon {
+        font-size: 36px;
+    }
+
+    .stat-card h3 {
+        font-size: 24px;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+
+    .action-buttons .btn-outline-primary {
+        margin-top: 10px;
+    }
+
+    .history-table {
+        font-size: 14px;
+    }
+
+    .history-table .btn-sm {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 24px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .stat-card h3 {
+        font-size: 20px;
+    }
+
+    .disease-card {
+        padding: 20px 15px;
+    }
+
+    .disease-icon {
+        font-size: 36px;
+    }
+
+    .btn-danger {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .result-card {
+        padding: 20px;
+    }
+
+    .disease-badge {
+        padding: 15px 20px;
+    }
+
+    .disease-badge i {
+        font-size: 36px;
+    }
+
+    .disease-badge h3 {
+        font-size: 20px;
+    }
+
+    .diseases-section {
+        margin-bottom: 30px;
+    }
+}
+
+/* =====================
+   Animations
+   ===================== */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Form animation */
+.form-control:focus {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}

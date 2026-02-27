@@ -1,0 +1,107 @@
+{% extends 'predictor/base.html' %}
+{% load static %}
+
+{% block title %}Detection Result - Strawberry Detection{% endblock %}
+
+{% block content %}
+<div class="container-lg py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="result-container">
+                <!-- Result Card -->
+                <div class="result-card">
+                    <!-- Leaf Image -->
+                    <div class="result-image mb-4">
+                        <img src="{{ prediction.image.url }}" alt="Analyzed Leaf">
+                    </div>
+
+                    <!-- Disease Detection Result -->
+                    <div class="result-content text-center">
+                        <h2 class="mb-3">Detection Result</h2>
+                        
+                        <!-- Disease Name -->
+                        <div class="disease-badge {% if prediction.disease_type == 'healthy' %}badge-healthy{% elif prediction.disease_type == 'leaf_scorch' %}badge-danger{% elif prediction.disease_type == 'powdery_mildew' %}badge-warning{% else %}badge-info{% endif %}">
+                            <i class="fas fa-leaf"></i>
+                            <h3>{{ prediction.disease_name }}</h3>
+                        </div>
+
+                        <!-- Confidence Score -->
+                        <div class="confidence-section mt-4">
+                            <p class="text-muted">Confidence Score</p>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: {{ prediction.confidence }}%">
+                                    <span class="confidence-text">{{ prediction.confidence_percentage }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Disease Info -->
+                        <div class="disease-description mt-4 p-4 bg-light rounded">
+                            {% if prediction.disease_type == 'healthy' %}
+                                <p class="mb-0">🎉 Great news! Your strawberry leaf is healthy and shows no signs of disease.</p>
+                            {% elif prediction.disease_type == 'leaf_scorch' %}
+                                <p class="mb-0"><strong>Leaf Scorch:</strong> Brown, scorched appearance typically on leaf edges. Often caused by water stress or environmental conditions.</p>
+                            {% elif prediction.disease_type == 'powdery_mildew' %}
+                                <p class="mb-0"><strong>Powdery Mildew:</strong> White powdery coating on leaf surface. Fungal disease that affects plant productivity.</p>
+                            {% else %}
+                                <p class="mb-0"><strong>Angular Leaf Spot:</strong> Dark angular lesions with yellow halo. Bacterial disease that can spread rapidly.</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Recommendations -->
+                        <div class="recommendations mt-4 p-4 bg-light rounded">
+                            <h5 class="mb-3">📋 Recommendations</h5>
+                            {% if prediction.disease_type == 'healthy' %}
+                                <ul class="text-start">
+                                    <li>Continue regular watering and maintenance</li>
+                                    <li>Monitor plant health regularly</li>
+                                    <li>Maintain proper spacing for air circulation</li>
+                                </ul>
+                            {% elif prediction.disease_type == 'leaf_scorch' %}
+                                <ul class="text-start">
+                                    <li>Ensure consistent watering schedule</li>
+                                    <li>Apply mulch to retain soil moisture</li>
+                                    <li>Protect from extreme heat exposure</li>
+                                    <li>Consider using shade cloth in hot climates</li>
+                                </ul>
+                            {% elif prediction.disease_type == 'powdery_mildew' %}
+                                <ul class="text-start">
+                                    <li>Apply sulfur-based fungicides</li>
+                                    <li>Improve air circulation around plants</li>
+                                    <li>Reduce leaf wetness and humidity</li>
+                                    <li>Remove affected leaves promptly</li>
+                                </ul>
+                            {% else %}
+                                <ul class="text-start">
+                                    <li>Apply copper-based bactericides</li>
+                                    <li>Remove infected leaves immediately</li>
+                                    <li>Avoid overhead watering</li>
+                                    <li>Isolate affected plants from healthy ones</li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons mt-4 text-center">
+                    <a href="{% url 'predictor:predict' %}" class="btn btn-primary btn-lg me-2">
+                        <i class="fas fa-camera"></i> Analyze Another
+                    </a>
+                    <a href="{% url 'predictor:history' %}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-history"></i> View History
+                    </a>
+                </div>
+
+                <!-- Result Info -->
+                <div class="result-info text-center mt-4 text-muted">
+                    <small>
+                        <i class="fas fa-info-circle"></i>
+                        Detection Date: {{ prediction.created_at|date:"M d, Y \a\t h:i A" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

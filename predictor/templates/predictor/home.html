@@ -1,0 +1,131 @@
+{% extends 'predictor/base.html' %}
+{% load static %}
+
+{% block title %}Home - Strawberry Disease Detection{% endblock %}
+
+{% block content %}
+<div class="container-lg py-5">
+    <!-- Hero Section -->
+    <section class="hero-section text-center mb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold mb-3">
+                        <span class="text-danger">Strawberry</span> Disease Detection
+                    </h1>
+                    <p class="lead text-muted mb-4">
+                        Detect leaf diseases in strawberries using AI-powered image analysis
+                    </p>
+                    <a href="{% url 'predictor:predict' %}" class="btn btn-danger btn-lg px-5">
+                        <i class="fas fa-camera"></i> Start Detection
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <i class="fas fa-leaf"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section mb-5">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>{{ total_predictions }}</h3>
+                    <p>Predictions Made</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>4</h3>
+                    <p>Diseases Detected</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>99%</h3>
+                    <p>Accuracy Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diseases Info Section -->
+    <section class="diseases-section mb-5">
+        <h2 class="text-center mb-4">Detectable Diseases</h2>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <div class="disease-card healthy">
+                    <div class="disease-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h4>Healthy Leaf</h4>
+                    <p>No disease detected, leaf is in good condition</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="disease-card danger">
+                    <div class="disease-icon">
+                        <i class="fas fa-burn"></i>
+                    </div>
+                    <h4>Leaf Scorch</h4>
+                    <p>Brown, scorched appearance on leaf edges</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="disease-card warning">
+                    <div class="disease-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h4>Powdery Mildew</h4>
+                    <p>White powdery coating on leaf surface</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="disease-card info">
+                    <div class="disease-icon">
+                        <i class="fas fa-location-dot"></i>
+                    </div>
+                    <h4>Angular Leaf Spot</h4>
+                    <p>Dark angular lesions with yellow halo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Predictions -->
+    {% if predictions %}
+    <section class="recent-section">
+        <h2 class="text-center mb-4">Recent Detections</h2>
+        <div class="row">
+            {% for prediction in predictions %}
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="prediction-card">
+                    <img src="{{ prediction.image.url }}" alt="Prediction" class="prediction-image">
+                    <div class="prediction-info">
+                        <h5>{{ prediction.disease_name }}</h5>
+                        <p class="confidence">
+                            <strong>{{ prediction.confidence_percentage }}</strong> confidence
+                        </p>
+                        <small class="text-muted">{{ prediction.created_at|date:"M d, Y" }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

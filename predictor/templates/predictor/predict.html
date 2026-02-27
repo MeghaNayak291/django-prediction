@@ -1,0 +1,127 @@
+{% extends 'predictor/base.html' %}
+{% load static %}
+
+{% block title %}Detect Disease - Strawberry Detection{% endblock %}
+
+{% block content %}
+<div class="container-lg py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="prediction-form-container">
+                <h2 class="text-center mb-4">
+                    <i class="fas fa-camera text-danger"></i> Upload Leaf Image
+                </h2>
+                
+                <form method="post" enctype="multipart/form-data" id="predictionForm" class="prediction-form">
+                    {% csrf_token %}
+                    
+                    <!-- Image Upload Area -->
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h5>Drag and drop your image here</h5>
+                            <p>or click to select a file</p>
+                            {{ form.image }}
+                        </div>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="image-preview mt-4" style="display: none;">
+                        <img id="previewImg" src="" alt="Preview">
+                        <button type="button" class="btn-remove" id="removeImageBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- File Info -->
+                    <div id="fileInfo" class="file-info mt-3" style="display: none;">
+                        <p><strong>Selected File:</strong> <span id="fileName"></span></p>
+                        <p><strong>File Size:</strong> <span id="fileSize"></span></p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-danger btn-lg px-5" id="submitBtn">
+                            <i class="fas fa-search"></i> Detect Disease
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Tips Section -->
+                <div class="tips-section mt-5">
+                    <h5><i class="fas fa-lightbulb"></i> Tips for Best Results</h5>
+                    <ul>
+                        <li>Ensure good lighting on the leaf</li>
+                        <li>Focus on the affected area</li>
+                        <li>Use high-quality images (JPG, PNG)</li>
+                        <li>Image should be clear and not blurry</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const fileInfo = document.getElementById('fileInfo');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+    const predictionForm = document.getElementById('predictionForm');
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        imageInput.files = e.dataTransfer.files;
+        handleImageSelected();
+    });
+
+    uploadArea.addEventListener('click', () => imageInput.click());
+
+    imageInput.addEventListener('change', handleImageSelected);
+
+    function handleImageSelected() {
+        if (imageInput.files && imageInput.files[0]) {
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                imagePreview.style.display = 'block';
+                
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('fileSize').textContent = (file.size / 1024).toFixed(2) + ' KB';
+                fileInfo.style.display = 'block';
+                
+                uploadArea.style.display = 'none';
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    removeImageBtn.addEventListener('click', () => {
+        imageInput.value = '';
+        imagePreview.style.display = 'none';
+        fileInfo.style.display = 'none';
+        uploadArea.style.display = 'block';
+    });
+
+    predictionForm.addEventListener('submit', () => {
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    });
+</script>
+{% endblock %}
